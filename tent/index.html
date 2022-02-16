@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <title>Tent narthex digital signage</title>
+    <style>
+        :root {
+            --padding: 20px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #d40e0e, #2600ce);;
+        }
+
+        .container {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            grid-template-columns: 15% 85%;
+            grid-template-rows: auto calc(var(--padding) * 2 + 98px);
+        }
+
+        #right-sidebar {
+            grid-column: 1;
+            grid-row: 1;
+            margin: var(--padding) 0 0 var(--padding);
+        }
+
+        #wifi, #logo, .socials {
+            margin-bottom: var(--padding);
+            background: white;
+            border-radius: var(--padding);
+        }
+
+        #wifi {
+            width: calc(100% - calc(var(--padding) / 2));
+            padding: 5px;
+        }
+
+        #logo, .socials {
+            width: calc(100% - calc(var(--padding) * 2));
+            padding: 20px;
+        }
+
+        .socials {
+            list-style-type: none;
+            margin-top: 0;
+        }
+
+        .socials>li {
+            margin-bottom: 12px;
+            line-height: 2em;
+        }
+
+        .socials>li:last-child {
+            margin-bottom: 0;
+        }
+
+        .social-logo-container {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+        }
+
+        .social-logo {
+            width: 32px;
+            max-height: 32px;
+            vertical-align: middle;
+        }
+
+        .social-label {
+            font-family: Poppins;
+            vertical-align: middle;
+            line-height: 2em;
+            margin-left: 4px;
+        }
+
+        .slideshow-container {
+            margin: var(--padding);
+            margin-bottom: 0;
+            border-radius: var(--padding);
+            width: calc(100% - calc(var(--padding) * 2));
+            height: calc(100% - var(--padding));
+            grid-column: 2;
+            grid-row: 1;
+            overflow: hidden;
+        }
+
+        #slideshow {
+            border-radius: var(--padding);
+            width: calc(100% + 50px);
+            height: calc(100% + 1px);
+            position: relative;
+            left: -25px;
+        }
+
+        .weatherwidget-io {
+        border-radius: var(--padding);
+        margin: var(--padding);
+        grid-row: 2;
+        grid-column: 1 / span 2;
+    }
+    </style>
+    <script>
+        /*--------------------
+        Vars
+        --------------------*/
+        const deg = (a) => Math.PI / 180 * a
+        const rand = (v1, v2) => Math.floor(v1 + Math.random() * (v2 - v1))
+        const opt = {
+            particles: window.width / 500 ? 1000 : 500,
+            noiseScale: 0.009,
+            angle: Math.PI / 180 * -90,
+            h1: rand(0, 360),
+            h2: rand(0, 360),
+            s1: rand(20, 90),
+            s2: rand(20, 90),
+            l1: rand(30, 80),
+            l2: rand(30, 80),
+            strokeWeight: 1.2,
+            tail: 82,
+        }
+        const Particles = []
+        let time = 0
+
+
+        /*--------------------
+        Particle
+        --------------------*/
+        class Particle {
+            constructor(x, y) {
+                this.x = x
+                this.y = y
+                this.lx = x
+                this.ly = y
+                this.vx = 0
+                this.vy = 0
+                this.ax = 0
+                this.ay = 0
+                this.hueSemen = Math.random()
+                this.hue = this.hueSemen > .5 ? 20 + opt.h1 : 20 + opt.h2
+                this.sat = this.hueSemen > .5 ? opt.s1 : opt.s2
+                this.light = this.hueSemen > .5 ? opt.l1 : opt.l2
+                this.maxSpeed = this.hueSemen > .5 ? 3 : 2
+            }
+
+            randomize() {
+                this.hueSemen = Math.random()
+                this.hue = this.hueSemen > .5 ? 20 + opt.h1 : 20 + opt.h2
+                this.sat = this.hueSemen > .5 ? opt.s1 : opt.s2
+                this.light = this.hueSemen > .5 ? opt.l1 : opt.l2
+                this.maxSpeed = this.hueSemen > .5 ? 3 : 2
+            }
+
+            update() {
+                this.follow()
+
+                this.vx += this.ax
+                this.vy += this.ay
+
+                var p = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
+                var a = Math.atan2(this.vy, this.vx)
+                var m = Math.min(this.maxSpeed, p)
+                this.vx = Math.cos(a) * m
+                this.vy = Math.sin(a) * m
+
+                this.x += this.vx
+                this.y += this.vy
+                this.ax = 0
+                this.ay = 0
+
+                this.edges()
+            }
+
+            follow() {
+                let angle = (noise(this.x * opt.noiseScale, this.y * opt.noiseScale, time * opt.noiseScale)) * Math.PI * 0.5 + opt.angle
+
+                this.ax += Math.cos(angle)
+                this.ay += Math.sin(angle)
+
+            }
+
+            updatePrev() {
+                this.lx = this.x
+                this.ly = this.y
+            }
+
+            edges() {
+                if (this.x < 0) {
+                    this.x = width
+                    this.updatePrev()
+                }
+                if (this.x > width) {
+                    this.x = 0
+                    this.updatePrev()
+                }
+                if (this.y < 0) {
+                    this.y = height
+                    this.updatePrev()
+                }
+                if (this.y > height) {
+                    this.y = 0
+                    this.updatePrev()
+                }
+            }
+
+            render() {
+                stroke(`hsla(${this.hue}, ${this.sat}%, ${this.light}%, .5)`)
+                line(this.x, this.y, this.lx, this.ly)
+                this.updatePrev()
+            }
+        }
+
+
+        /*--------------------
+        Setup
+        --------------------*/
+        function setup() {
+            createCanvas(windowWidth, windowHeight)
+            for (let i = 0; i < opt.particles; i++) {
+                Particles.push(new Particle(Math.random() * width, Math.random() * height))
+            }
+            strokeWeight(opt.strokeWeight)
+        }
+
+
+        /*--------------------
+        Draw
+        --------------------*/
+        function draw() {
+            time++
+            background(0, 100 - opt.tail)
+
+            for (let p of Particles) {
+                p.update()
+                p.render()
+            }
+        }
+
+
+        /*--------------------
+        Resize
+        --------------------*/
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div id="right-sidebar">
+            <img src="../assets/MZlogo.svg" alt="MZ logo" id="logo">
+            <img src="../assets/wifi.svg" alt="WiFi QR" id="wifi">
+            <ul class="socials">
+                <li>
+                    <img class="social-logo" src="../assets/cross.svg" alt="MZ logo cross">
+                    <span class="social-label">mzprays.org</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/facebook.svg" alt="Facebook logo">
+                    <span class="social-label">mzprays</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/instagram.svg" alt="Instagram logo">
+                    <span class="social-label">mtzionprays</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/twitch.svg" alt="Twitch logo">
+                    <span class="social-label">mzprays</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/soundcloud.svg" alt="Soundcloud logo">
+                    <span class="social-label">mzprays</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/twitter.svg" alt="Twitter logo">
+                    <span class="social-label">mtzionprays</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/phone.svg" alt="Phone logo">
+                    <span class="social-label">410-836-7444</span>
+                </li>
+                <li>
+                    <img class="social-logo" src="../assets/email.svg" alt="Email logo">
+                    <span class="social-label">office@mzprays.org</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slideshow-container">
+            <iframe src="https://docs.google.com/presentation/d/1EAEHmSpiCrt6sxHz7PUzzNKE8HeZHORlg6evzKC8_ak/embed?start=true&loop=true&delayms=10000&slide=id.p1&rm=minimal" frameborder="0" id="slideshow"></iframe>
+        </div>
+
+        <a class="weatherwidget-io" href="https://forecast7.com/en/39d57n76d31/21015/?unit=us" data-label_1="Bel Air"
+            data-label_2="21015" data-font="Roboto" data-icons="Climacons Animated" data-theme="pure">Bel Air 21015</a>
+        <script>
+            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+        </script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="14.630405mm"
+   height="43.09mm"
+   viewBox="0 0 14.630405 43.09"
+   version="1.1"
+   id="svg3187"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="cross.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3189"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.74118967"
+     inkscape:cx="-2.0237735"
+     inkscape:cy="7.4205027"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs3184" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-3.0369611,-3.7999519)">
+    <path
+       d="m 10.396961,10.429952 c 2.11,-0.5400001 4.59,-0.6900001 6.63,-1.3000001 1.37,1.3700001 0.31,2.7100001 -1.01,3.6000001 -1.59,1.08 -4.38,1.87 -5.48,2.6 -1.3899999,8.73 -3.1699999,18.88 -4.0399999,28.39 -0.13,1.45 0.14,2.64 -1.15,3.17 -0.92,-0.53 -0.58,-2.01 -0.58,-3.03 0,-8.48 0.45,-18.31 1.15,-27.24 -0.77,-0.28 -1.96,-0.15 -2.73,-0.43 0,-1.57 0,-2.3 -0.15,-3.6 1.35,-0.29 2.53,-0.74 3.75,-1.15 0.99,-2.4800001 0.36,-6.5500001 2.75,-7.6400001 0.7599999,0.2 0.8899999,1.03 1.4399999,1.44 -0.14,1.32 -0.41,3.46 -0.58,5.1900001 z"
+       id="path3983"
+       inkscape:connector-curvature="0"
+       style="fill:#ed1c24;fill-rule:evenodd;stroke:none;stroke-width:0.28222;stroke-linejoin:round" />
+  </g>
+</svg>
