@@ -16,57 +16,59 @@
             padding: 0;
             margin: 0;
             height: 100vh;
-            background: linear-gradient(45deg, #d40e0e, #2600ce);;
+            font-family: Poppins;
+            background: linear-gradient(-45deg, #eb1717, #ff00b3, #1900ff, #2dff50, #0ffa1b);
+            background-size: 500% 500%;
+            animation: bganim 30s ease-in-out infinite;
+        }
+
+        @keyframes bganim {
+            0%{background-position: 0% 0%;}
+            50%{background-position: 100% 100%;}
+            100%{background-position: 0% 0%;}
         }
 
         .container {
             display: grid;
             width: 100%;
             height: 100%;
-            grid-template-columns: 15% 85%;
-            grid-template-rows: auto calc(var(--padding) * 2 + 98px);
+            grid-template-columns: 17em 1fr;
+            grid-template-rows: auto min-content;
+            gap: var(--padding);
+            padding: var(--padding);
+            box-sizing: border-box;
         }
 
         #left-sidebar {
             grid-column: 1;
             grid-row: 1;
-            margin: var(--padding) 0 0 var(--padding);
         }
 
-        #wifi, #logo, .socials, #clock {
-            margin-bottom: var(--padding);
+        .card {
             background: white;
             border-radius: var(--padding);
+            box-sizing: border-box;
+            width: 100%;
+            padding: var(--padding);
         }
-
-        #wifi {
-            width: calc(100% - calc(var(--padding) / 2));
-            padding: 5px;
-        }
-
-        #logo, .socials {
-            width: calc(100% - calc(var(--padding) * 2));
-            padding: 20px;
+        
+        #left-sidebar > .card:not(:last-child) {
+            margin-bottom: var(--padding);
         }
 
         .socials {
             list-style-type: none;
             margin-top: 0;
+            margin-bottom: 0;
         }
 
-        .socials>li {
+        .socials > li {
             margin-bottom: 12px;
             line-height: 2em;
         }
 
-        .socials>li:last-child {
+        .socials > li:last-child {
             margin-bottom: 0;
-        }
-
-        .social-logo-container {
-            width: 32px;
-            height: 32px;
-            vertical-align: middle;
         }
 
         .social-logo {
@@ -76,49 +78,39 @@
         }
 
         .social-label {
-            font-family: Poppins;
             vertical-align: middle;
             line-height: 2em;
             margin-left: 4px;
         }
 
         #clock {
-            margin: var(--padding);
             grid-column: 1;
             grid-row: 2;
-            font-family: Poppins;
-            font-size: 3em;
+            font-size: 2.4em;
             text-align: center;
-            width: calc(100% - calc(var(--padding) * 3));
-            padding: var(--padding);
-            padding-top: calc(var(--padding) - 7px);
         }
 
         .slideshow-container {
-            margin: var(--padding);
-            margin-bottom: 0;
-            border-radius: var(--padding);
-            width: calc(100% - calc(var(--padding) * 2));
-            height: calc(100% - var(--padding));
+            height: 100%;
             grid-column: 2;
             grid-row: 1;
             overflow: hidden;
+            padding: 0;
         }
 
         #slideshow {
-            border-radius: var(--padding);
-            width: calc(100% + 50px);
-            height: calc(100% + 1px);
             position: relative;
+            top: -5px;
             left: -25px;
+            height: calc(100% + 10px);
+            width: calc(100% + 55px);
         }
 
         .weatherwidget-io {
-        border-radius: var(--padding);
-        margin: var(--padding);
-        grid-row: 2;
-        grid-column: 2;
-    }
+            grid-row: 2;
+            grid-column: 2;
+            padding: 0;
+        }
     </style>
     <script>
         function formatAMPM(date) {
@@ -142,9 +134,9 @@
     <div class="container">
 
         <div id="left-sidebar">
-            <img src="assets/MZlogo.svg" alt="MZ logo" id="logo">
-            <img src="assets/wifi.svg" alt="WiFi QR" id="wifi">
-            <ul class="socials">
+            <img src="assets/MZlogo.svg" alt="MZ logo" id="logo" class="card">
+            <img src="assets/wifi.svg" alt="WiFi QR" id="wifi" class="card">
+            <ul class="socials card">
                 <li>
                     <img class="social-logo" src="assets/cross.svg" alt="MZ logo cross">
                     <span class="social-label">mzprays.org</span>
@@ -180,13 +172,13 @@
             </ul>
         </div>
 
-        <div id="clock"></div>
+        <div id="clock" class="card"></div>
 
-        <div class="slideshow-container">
+        <div class="slideshow-container card">
             <iframe src="https://docs.google.com/presentation/d/1EAEHmSpiCrt6sxHz7PUzzNKE8HeZHORlg6evzKC8_ak/embed?start=true&loop=true&delayms=10000&slide=id.p1&rm=minimal" frameborder="0" id="slideshow"></iframe>
         </div>
 
-        <a class="weatherwidget-io" href="https://forecast7.com/en/39d57n76d31/21015/?unit=us" data-label_1="Bel Air"
+        <a class="weatherwidget-io card" href="https://forecast7.com/en/39d57n76d31/21015/?unit=us" data-label_1="Bel Air"
             data-label_2="21015" data-font="Roboto" data-icons="Climacons Animated" data-theme="pure">Bel Air 21015</a>
         <script>
             !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
