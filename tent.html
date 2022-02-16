@@ -27,13 +27,13 @@
             grid-template-rows: auto calc(var(--padding) * 2 + 98px);
         }
 
-        #right-sidebar {
+        #left-sidebar {
             grid-column: 1;
             grid-row: 1;
             margin: var(--padding) 0 0 var(--padding);
         }
 
-        #wifi, #logo, .socials {
+        #wifi, #logo, .socials, #clock {
             margin-bottom: var(--padding);
             background: white;
             border-radius: var(--padding);
@@ -82,6 +82,18 @@
             margin-left: 4px;
         }
 
+        #clock {
+            margin: var(--padding);
+            grid-column: 1;
+            grid-row: 2;
+            font-family: Poppins;
+            font-size: 3em;
+            text-align: center;
+            width: calc(100% - calc(var(--padding) * 3));
+            padding: var(--padding);
+            padding-top: calc(var(--padding) - 7px);
+        }
+
         .slideshow-container {
             margin: var(--padding);
             margin-bottom: 0;
@@ -108,12 +120,28 @@
         grid-column: 2;
     }
     </style>
+    <script>
+        function formatAMPM(date) {
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            let strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
+
+        var time = setInterval(() => {
+            document.getElementById("clock").innerHTML = formatAMPM(new Date);
+        }, 1000);
+    </script>
 </head>
 
 <body>
     <div class="container">
 
-        <div id="right-sidebar">
+        <div id="left-sidebar">
             <img src="assets/MZlogo.svg" alt="MZ logo" id="logo">
             <img src="assets/wifi.svg" alt="WiFi QR" id="wifi">
             <ul class="socials">
@@ -151,6 +179,8 @@
                 </li>
             </ul>
         </div>
+
+        <div id="clock"></div>
 
         <div class="slideshow-container">
             <iframe src="https://docs.google.com/presentation/d/1EAEHmSpiCrt6sxHz7PUzzNKE8HeZHORlg6evzKC8_ak/embed?start=true&loop=true&delayms=10000&slide=id.p1&rm=minimal" frameborder="0" id="slideshow"></iframe>
